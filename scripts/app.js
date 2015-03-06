@@ -1,25 +1,23 @@
 var rbApp = angular.module('rbApp', [
 	'ngRoute',
-	'rbControllers',
+	'rbControllers'
 	]);
 
 rbApp.config(['$routeProvider',
-	function($routeProvider){
+	function($routeProvider) {
 		$routeProvider.
-        when('/login', {
-                templateUrl: 'login.html',
-                controller: 'loginControl'
+        when('/', {
+                templateUrl: "/views/login.html",
+                controller: "loginControl"
             }).
-            when('/projects', {
-                templateUrl: 'views/projects.html',
+               when('/projects', {
+                templateUrl: '/views/projects.html',
                 controller: 'projectsControl'
             }).
             when('/tasks', {
-                templateUrl: 'views/tasks.html',
+                templateUrl: '/views/tasks.html',
                 controller: 'tasksControl'
-            });
-            
-// 			otherwise({
-// 				redirectTo: '/login'
-// 			});
+            }).
+            otherwise({redirectTo: '/'})
+			
 }]);
