@@ -1,4 +1,4 @@
-<div ng-controller="taskControl">
+<div ng-controller="tasksControl">
  this is single project view <br>
 <div id="main">
 
@@ -12,7 +12,7 @@
 	<div id="createBar">
 		<divclass="greenCross"></div>
 		<input type="text" placeholder="Start typing here to create a task...">
-		<div id="addButton">Add Task</div>
+		<div id="addButton" ng-click="createTask()">Add Task</div>
 
 
 
