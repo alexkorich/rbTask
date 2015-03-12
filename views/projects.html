@@ -1,4 +1,20 @@
-<form ng-init="start()"> 
-			  projects
-			    <button type="button" class="btn btn-default" </button>
+<form ng-init="start()">
+user:{{username}} 
+			 
+			    <button type="button" class="btn btn-default"> </button>
+<div ng-clik="addProject()">add project</div>
+<table>
+	  	<tr ng-repeat="projects in respond">
+	  		<input type="checkbox">
+		    <td>{{task.text}}</td>
+		    <td>
+		    	<div>
+		    		<button id="upper">upper</button>
+		    		<button id="lower">lower</button>
+		    	</div>
+		    	<button id="edit"> edit</button>
+		    	<button id="delete"> delete</button>
+		    </td>
+	  	</tr>
+	</table>
 </form>

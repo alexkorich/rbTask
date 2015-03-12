@@ -1,20 +1,21 @@
 <form>
 cdddft
-  <div class="container" id="loginContainer">
+  <div class="container" id="loginContainer" >
     <form class="form-signin">
       <h2 class="form-signin-heading">Please sign in</h2>
       <input type="text" class="form-control" placeholder="Login"ng-model="username">
       <input type="password" class="form-control" placeholder="Password" required=""ng-model="password">
       <button class="btn btn-lg btn-primary btn-block" ng-click="signIn(username, password)">Sign in</button>
     </form>
-    <button class="btn btn-lg btn-primary btn-block" ng-click="signUp()">Sign up</button>
+    <button class="btn btn-lg btn-primary btn-block" ng-click="isNewUser = !isNewUser">Sign up</button>
   </div>
 
   <div id="newUser" ng-show="isNewUser">
     <form>
-      <input type="text" class="form-control" placeholder="Choose your login name">
-          <input type="password" class="form-control" placeholder="Choose your password" required="" >
-          <button class="btn btn-lg btn-primary btn-block" type="submit" formaction="login">Create new user</button>
+      <input type="text" class="form-control" placeholder="Choose your login name" ng-model="newUsername" >
+          <input type="password" class="form-control" placeholder="Choose your password" required=""ng-model="newPassword" >
+          <input type="password" class="form-control" placeholder="Repeat password" required=""ng-model="newPassword2" >
+          <button class="btn btn-lg btn-primary btn-block" ng-click="newUser(newUsername, newPassword, newPassword2)">Create new user</button>
     </form>
   </div>
   
