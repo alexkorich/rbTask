@@ -1,24 +1,40 @@
 <div ng-init="start()">
 	Hello, {{username}} 
+<br>
+<div ng-repeat="project in projects" style="border:1px solid black">
+	<div id="header">
+		<span>{{project.name}}</span>
+		
+		<span><button id="edit" ng-click="updateProject(project.name)">update</button></span> 
+		<span><button id="delete" ng-click="deleteProject(project.name)">delete</button></span>
+	</div>
+	<div id="taskAdder">
+		<span id="greenCross"></span> 
+		<form>
+			<input type="text" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
+			<button ng-click="addTask(newTaskContent, project.name)">Add Task</button>
+		</form>	
 
-{{projects}}
-	<table>
-		  	<tr ng-repeat="project in projects">
-		  		<input type="checkbox">
-			    <td>{{project}}</td>
-			    <td>
-			    	
-			    	<button id="edit" ng-click="update(projectName)">update</button>
-			    	<button id="delete"> delete</button>
-			    </td>
-		  	</tr>
-	</table>
-	<button ng-click="isListShow = !isListShow">add ToDo list</button>
+	</div>
+	<div ng-repeat="task in project.tasks">
+		<span><form><input type="checkbox" ng-checked="checkTask(project.task)"></form></span>
+		<span>{{task.content}}</span>
+		<span><button>Up</button></span>
+		<span><button>down</button></span>
+		<span><button>delete</button></span>
+	</div>
+
+
+
+</div>
+
+
+<button ng-click="isListShow = !isListShow">add ToDo list</button>
 	<form ng-show="isListShow">
 		<!-- <div id="toolkit">{{msg}}  </div> -->
 			<input type="text" ng-model="newProjectName" placeholder="Enter new list name">
 			<button ng-click="createProject(newProjectName)">Create new project</button>
-	</form>
+	</form>	
 </div>
 
 

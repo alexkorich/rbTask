@@ -35,27 +35,23 @@ $scope.createProject =function(projectName){
 		.success(function(res, err){
 			if(res==="ok")
 				{$scope.reload();
+					$scope.newProjectName='';
 					}	
-				if(res==="exist")
-				{
-					$scope.showExist=true;
-					
-				}
-				if(res==="notPass")
-				{
-					$scope.notPass=true;
-
-				}
-					$scope.username='';
-					$scope.password='';
-		})
+				})
 	};
 
 
 
 }
 
-$scope.deleteProject =function(){
+$scope.deleteProject =function(projectName){
+	console.log("delete!")
+	$http.post('/deleteProject', {username:$scope.user.username, projectName:projectName})
+		.success(function(res, err){
+			if(res==="ok")
+				{$scope.reload();}
+					
+				})
 }
 
 $scope.toProject =function(projectID){
@@ -63,7 +59,17 @@ $scope.toProject =function(projectID){
 	$location.path("tasks");
 }
 
+$scope.addTask= function(content, projectName){
+	console.log("addTask!")
+	$http.post('/addTask', {username:$scope.user.username, projectName:projectName, content:content})
+		.success(function(res, err){
+			if(res==="ok")
+				{$scope.reload();}
+					
+				})
+}
 
+//end controller
 });
 
 

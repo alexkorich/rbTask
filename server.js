@@ -61,6 +61,48 @@ app.post('/createProject', function(req, res){
 	
 });
 
+app.post('/addTask', function(req, res){
+	var msg='';
+	console.log('addTask!');
+	console.log('addTask: ', req.body.username, req.body.projectName, req.body.content);
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+		var tasksCount=project.tasks.length+1;
+		var deadLine=new Date();
+		project.tasks.push({order:tasksCount, content:req.body.content, deadline: deadLine, isDone : false})
+		project.save(function (err) {
+        if(err) {
+
+            console.error('ERROR!');
+        }
+        console.log("saved!")
+    	});
+		res.send("ok");
+	});
+	
+});
+
+
+
+
+app.post('/deleteProject', function(req, res){
+	var msg='';
+	console.log('deleteProject!');
+	console.log('deleteProject: ', req.body.username, req.body.projectName);
+	db.project.findOne({username:req.body.username, name:req.body.projectName})
+	.remove()
+	.exec(function(err, project){
+		if (project===null)	
+		{
+			console.log("not found? can't remove");
+			msg="notFound";	
+		} else{
+			console.log("removed!");
+			msg="ok";
+		}
+		res.send(msg);
+	});
+	
+});
 
 
 app.post('/loadProjects', function(req, res){
@@ -71,6 +113,8 @@ db.project.find({username:req.body.username}, function(err, project){
 })
 
 });
+
+
 
 app.post('/newUser', function(req, res){
 	console.log("newUser! "+ " username:"+req.body.username, " password:"+req.body.username);
