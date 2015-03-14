@@ -37,6 +37,32 @@ app.post('/userCheck', function(req, res){
 	})
 	
 });
+
+
+app.post('/createProject', function(req, res){
+	var msg='';
+	console.log('createProject!');
+	console.log('createProject: ', req.body.username, req.body.projectName);
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+		if (project===null)	
+		{
+			console.log("not found, creating");
+			db.project.create({username:req.body.username, name:req.body.projectName}, function(err, project){
+
+
+			});
+			msg="ok";	
+		} else{
+			console.log("project already exist!");
+			msg="already";
+		}
+		res.send(msg);
+	});
+	
+});
+
+
+
 app.post('/loadProjects', function(req, res){
 console.log("loadProjects! "+req.body.username);
 db.project.find({username:req.body.username}, function(err, project){

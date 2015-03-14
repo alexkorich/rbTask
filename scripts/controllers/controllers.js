@@ -1,19 +1,58 @@
 var rbControllers = angular.module('rbControllers', []);
 
 rbControllers.controller('projectsControl', function($rootScope, $scope, $location, $http){
+//vars
+$scope.isListShow=false;
+$scope.newProjectName='';
+
 $scope.start = function(){
+	$scope.projects={};
 	$scope.user={};
 	$scope.user.username=$rootScope.username;
+	if ($rootScope.username==null){
+		$location.path("/");
+			}
 	console.log($scope.user.username);
+	$scope.reload();
+}
+
+$scope.reload= function(){
 	$http.post('/loadprojects', $scope.user)
 	.success(function(res, err){
-		console.log('yeah!')
-
-
+		console.log('projects loaded');
+		$scope.projects=res;
 
 	})
+}
+
+$scope.createProject =function(projectName){
+	var msg='';
+	if(projectName===null){
+
 	}
-$scope.createProject =function(){
+	else{
+		$http.post('/createProject', {username:$scope.user.username, projectName:projectName})
+		.success(function(res, err){
+			if(res==="ok")
+				{$scope.reload();
+					}	
+				if(res==="exist")
+				{
+					$scope.showExist=true;
+					
+				}
+				if(res==="notPass")
+				{
+					$scope.notPass=true;
+
+				}
+					$scope.username='';
+					$scope.password='';
+		})
+	};
+
+
+
 }
 
 $scope.deleteProject =function(){
@@ -28,9 +67,6 @@ $scope.toProject =function(projectID){
 });
 
 
-rbControllers.controller('tasksControl', function($rootScope, $scope, $location, $http){
-
-});
 
 rbControllers.controller('loginControl', function($rootScope, $scope, $location, $http){
 	$scope.user={};

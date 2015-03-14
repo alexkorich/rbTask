@@ -20,8 +20,8 @@ var userSchema = Schema(
 var projectSchema = Schema(
     {
         name:     {type: String, required: true, unique: true},
-        username:           {type: String},
-        tasks:          []
+        username:          {type: String},
+        tasks:          [{order: Number, content: String, deadline: Date, isDone : Boolean}]
     }
 );
 

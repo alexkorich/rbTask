@@ -1,10 +1,52 @@
-<form ng-init="start()">
-user:{{username}} 
-			 
-			    <button type="button" class="btn btn-default"> </button>
-<div ng-clik="addProject()">add project</div>
-<table>
-	  	<tr ng-repeat="projects in respond">
+<div ng-init="start()">
+	Hello, {{username}} 
+
+{{projects}}
+	<table>
+		  	<tr ng-repeat="project in projects">
+		  		<input type="checkbox">
+			    <td>{{project}}</td>
+			    <td>
+			    	
+			    	<button id="edit" ng-click="update(projectName)">update</button>
+			    	<button id="delete"> delete</button>
+			    </td>
+		  	</tr>
+	</table>
+	<button ng-click="isListShow = !isListShow">add ToDo list</button>
+	<form ng-show="isListShow">
+		<!-- <div id="toolkit">{{msg}}  </div> -->
+			<input type="text" ng-model="newProjectName" placeholder="Enter new list name">
+			<button ng-click="createProject(newProjectName)">Create new project</button>
+	</form>
+</div>
+
+
+<!-- 
+
+<div>
+	tasks
+ this is single project view <br>
+<div id="main">
+
+	<div id="header" style="inline-block">       
+		<button id="backToList"></button>
+		<div>{{s.name}}</div>
+		<button id="rename"></button>
+		<button id="delete"></button>
+	</div>
+
+	<div id="createBar">
+		<divclass="greenCross"></div>
+		<input type="text" placeholder="Start typing here to create a task...">
+		<div id="addButton" ng-click="createTask()">Add Task</div>
+
+
+
+	</div>
+
+	<table>
+	  	<tr ng-repeat="task in project">
 	  		<input type="checkbox">
 		    <td>{{task.text}}</td>
 		    <td>
@@ -17,4 +59,15 @@ user:{{username}}
 		    </td>
 	  	</tr>
 	</table>
-</form>
+	
+</div>
+
+</div>
+
+
+
+
+
+
+
+</div> -->
