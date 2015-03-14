@@ -12,15 +12,15 @@ db.once("open", function callback () {
 
 var userSchema = Schema(
     {
-        name:                     {type: String},
+        name:                   {type: String},
         password:				{type: String}
     }
 );
 
 var projectSchema = Schema(
     {
-        name:     {type: String, required: true, unique: true},
-        username:          {type: String},
+        name:           {type: String, required: true, unique: true},
+        username:       {type: String},
         tasks:          [{order: Number, content: String, deadline: Date, isDone : Boolean}]
     }
 );

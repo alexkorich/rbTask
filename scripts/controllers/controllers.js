@@ -39,9 +39,6 @@ $scope.createProject =function(projectName){
 					}	
 				})
 	};
-
-
-
 }
 
 $scope.deleteProject =function(projectName){
@@ -68,7 +65,15 @@ $scope.addTask= function(content, projectName){
 					
 				})
 }
-
+$scope.deleteTask= function(taskContent, projectName){
+	console.log("deleteTask!")
+	$http.post('/deleteTask', {username:$scope.user.username, projectName:projectName, task:taskContent})
+		.success(function(res, err){
+			if(res==="ok")
+				{$scope.reload();}
+					
+				})
+}
 //end controller
 });
 

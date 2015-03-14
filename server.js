@@ -81,7 +81,19 @@ app.post('/addTask', function(req, res){
 	
 });
 
+app.post('/deleteTask', function(req, res){
+	var msg='';
+	console.log('deleteTask!');
+	console.log('deleteTask: ', req.body.username, req.body.projectName, req.body.task);
+	db.project.update({username:req.body.username, name:req.body.projectName}, 
 
+		{$pull: {'tasks': {'content': req.body.task}}}, function(err, project){
+			console.log("LIIIIII"+project);
+		});
+		
+		res.send("ok");
+
+});
 
 
 app.post('/deleteProject', function(req, res){
