@@ -66,11 +66,10 @@ app.post('/createProject', function(req, res){
 app.post('/addTask', function(req, res){
 	var msg='';
 	console.log('addTask!');
-	console.log('addTask: ', req.body.username, req.body.projectName, req.body.content);
+	console.log('addTask: ', req.body.username, req.body.projectName, req.body.content, req.body.deadline);
 	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
 		var tasksCount=project.tasks.length+1;
-		var deadLine=new Date();
-		project.tasks.push({order:tasksCount, content:req.body.content, deadline: deadLine, isDone : false})
+		project.tasks.push({order:tasksCount, content:req.body.content, deadline: req.body.deadline, isDone : false})
 		project.save(function (err) {
         if(err) {
 

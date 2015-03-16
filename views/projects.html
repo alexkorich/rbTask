@@ -17,8 +17,9 @@
 			<span class="glyphicon glyphicon-plus" style="color:green; height:25px; width:25px"></span>
 			<span>
 				<form style="margin: 0; padding: 0;">
-					<input type="text" style="width: 460px;, display:inline" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
-					<button ng-click="addTask(newTaskContent, project.name)" class="btn btn-success">Add Task</button>
+					<input type="text" style="width: 460px; display:inline" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
+					<input type="date" ng-model="newTaskDeadline">
+					<button ng-click="addTask(newTaskContent, newTaskDeadline, project.name)" style="float:right" class="btn btn-success">Add Task</button>
 					<div class="alert alert-danger" ng-show="errNewTask" role="alert">
 				            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				          	   <span class="sr-only">Error:</span>
@@ -37,6 +38,7 @@
 			</td>
 			<td style="width:4px; border-right:1px solid #EFDADF"></td>
 			<td style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
+			<td style="border-right:1px solid #EFDADF">{{task.deadline| date:'dd-MM-yyyy'}}</td>
 			<td style="width:119px">	
 						<td>
 						<div style="display:block">

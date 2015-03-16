@@ -6,6 +6,7 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 	$scope.newProjectName='';
 	$scope.errNewProject='';
 	$scope.errNewTask='';
+	$scope.newTaskDeadline='';
 	//functions
 	$scope.logout =function(){
 		$rootScope.username=null;
@@ -71,14 +72,17 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 		$location.path("tasks");
 	}
 
-	$scope.addTask= function(content, projectName){
+	$scope.addTask= function(content, deadLine, projectName){
 		if(content==null){
 			$scope.errNewTask="Enter task";
 
+		}else if(deadLine==null){
+
+			$scope.errNewTask="Enter deadline for a task";
 		}
 		else{
 		console.log("addTask!")
-		$http.post('/addTask', {username:$scope.user.username, projectName:projectName, content:content})
+		$http.post('/addTask', {username:$scope.user.username, projectName:projectName, content:content, deadline:deadLine})
 			.success(function(res, err){
 				if(res==="ok")
 					{	$scope.errNewTask='';
