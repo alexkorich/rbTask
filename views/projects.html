@@ -30,7 +30,8 @@
 <br>
 <br>
 		<table class="table table-striped">
-		<tr ng-repeat="task in project.tasks">
+		<tr ng-mouseenter="myStyle={'background-color': '#FCFED5' }"
+    ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks" ng-style="myStyle">
 			<td style="width:40px; border-right:1px solid #EFDADF">
 				<form><input type="checkbox" ng-checked="checkTask(project.task)"></form>
 			</td>
