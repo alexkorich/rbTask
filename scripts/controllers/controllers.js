@@ -4,7 +4,11 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 //vars
 $scope.isListShow=false;
 $scope.newProjectName='';
+$scope.logout =function(){
+	$rootScope.username=null;
+$location.path("/");
 
+}
 $scope.start = function(){
 	$scope.projects={};
 	$scope.user={};

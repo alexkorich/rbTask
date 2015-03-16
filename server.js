@@ -25,6 +25,8 @@ app.post('/userCheck', function(req, res){
 	var msg='';
 	console.log('userCheck: ', req.body.username, req.body.password);
 	db.user.findOne({name:req.body.username}, function(err, user){
+		if (err) {console.log("database error!");
+		msg="ok";}
 		if (user===null)	
 		{
 			console.log("not found!");
