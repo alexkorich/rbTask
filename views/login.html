@@ -4,7 +4,14 @@
       <h2 class="form-signin-heading">Please sign in</h2>
       <input type="text" class="form-control" placeholder="Login"ng-model="username">
       <input type="password" class="form-control" placeholder="Password" ng-model="password">
-      <span ng-show="">{{errLogin}}</span>
+
+
+      <div class="alert alert-danger" ng-show="errLogin" role="alert">
+       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+            {{errLogin}}
+      </div>     
+      <br>
       <button class="btn btn-lg btn-primary btn-block" ng-click="signIn(username, password)">Sign in</button>
     </form>
     <button class="btn btn-lg btn-primary btn-block" ng-click="isNewUser = !isNewUser">Sign up</button>
@@ -16,7 +23,13 @@
       <input type="text" class="form-control" placeholder="Choose your login name" ng-model="newUsername" >
           <input type="password" class="form-control" placeholder="Choose your password" ng-model="newPassword" >
           <input type="password" class="form-control" placeholder="Repeat password" ng-model="newPassword2" >
-         <span ng-show="">{{errNewUser}}</span>
+
+          <div class="alert alert-danger" ng-show="errNewUser" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+             <span class="sr-only">Error:</span>
+               {{errNewUser}}
+          </div>  
+         
           <button class="btn btn-lg btn-primary btn-block" ng-click="newUser(newUsername, newPassword, newPassword2)">Create new user</button>
     </form>
   </div>

@@ -131,10 +131,10 @@ db.project.find({username:req.body.username}, function(err, project){
 
 
 app.post('/newUser', function(req, res){
-	console.log("newUser! "+ " username:"+req.body.username, " password:"+req.body.username);
+	console.log("newUser! "+ " username:"+req.body.username, " password:"+req.body.password);
 	db.user.findOne({name:req.body.username}, function(err, user){
 		console.log(user+"findooone")
-		if(user===null){
+		if(user==null){
 			db.user.create({
 				name: 	req.body.username,
 				password: 	req.body.password
@@ -142,7 +142,9 @@ app.post('/newUser', function(req, res){
 				console.log("created!", user);
 				});
 			res.send("ok");
-		}else{res.send("already");}	
+		}else{
+			console.log("already")
+			res.send("already");}	
 	});
 
 });

@@ -1,37 +1,51 @@
 <div ng-init="start()" style="margin-right:auto; margin-left:auto">
 	 
-	<div class="panel panel-primary"class="panel panel-primary panel-heading"><span>Hello, {{username}}</span><button ng-click="logout()" class="btn btn-primary" style="float:right">Logout</button> </div>
+	<div class="panel panel-primary" style="margin: 0; padding: 0; border:0">
+		<div class="panel panel-primary panel-heading"><span>Hello, {{username}}</span><button ng-click="logout()" class="btn btn-primary" style="float:right">Logout</button></div> 
+	</div>
+	
 	<br>
 	<div ng-repeat="project in projects" class="panel panel-primary" style="width:700px;margin-left:auto;margin-right:auto">
-	<div id="header" class="panel-heading" style="height:49px">
-		<span class="glyphicon glyphicon-list-alt"></span>
-		<span>{{project.name}}</span>
-		<span style="float:right"><button id="edit" ng-click="updateProject(project.name)" class="glyphicon glyphicon-pencil"></button></span> 
-		<span style="float:right"><button id="delete" ng-click="deleteProject(project.name)" class="glyphicon glyphicon-trash"></button></span>
-	</div>
+		<div id="header" class="panel-heading" style="height:49px">
+			<span class="glyphicon glyphicon-list-alt"></span>
+			<span>{{project.name}}</span>
+			<span style="float:right"><button id="edit" ng-click="updateProject(project.name)" class="glyphicon glyphicon-pencil"></button></span> 
+			<span style="float:right"><button id="delete" ng-click="deleteProject(project.name)" class="glyphicon glyphicon-trash"></button></span>
+		</div>
 
-	<div id="taskAdder" class="panel-body" style="height:49px; background-color:#DFDFDF">
-		<span class="glyphicon glyphicon-plus" style="color:green; height:25px; width:25px"></span>
-		<span><form style="margin: 0; padding: 0;">
-				<input type="text" style="width: 460px;, display:inline" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
-				<button ng-click="addTask(newTaskContent, project.name)" class="btn btn-success">Add Task</button>
-			</form>	</span>
-	</div>
-
-
-	<div ng-repeat="task in project.tasks" class="panel-body">
-		<span style="width:40px"><form><input type="checkbox" ng-checked="checkTask(project.task)"></form></span>
-		<span style="width:4px"></span>
-		<span style="width:534px">{{task.content}}</span>
-		<span style="width:119px">
-			<button ng-click="upTask()"   class="glyphicon glyphicon-chevron-up"></button>
-			<button ng-click="downTask()" class="glyphicon glyphicon-chevron-down"></button>
-			<button ng-click="editTask()" class="glyphicon glyphicon-pencil"></button>
-			<button ng-click="deleteTask(task.content, project.name)" class="glyphicon glyphicon-trash"></button>
-		</span>
-	</div>
+		<div id="taskAdder" class="panel-body" style="height:49px; background-color:#DFDFDF">
+			<span class="glyphicon glyphicon-plus" style="color:green; height:25px; width:25px"></span>
+			<span>
+				<form style="margin: 0; padding: 0;">
+					<input type="text" style="width: 460px;, display:inline" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
+					<button ng-click="addTask(newTaskContent, project.name)" class="btn btn-success">Add Task</button>
+				</form>	
+			</span>
+		</div>
+<br>
+<br>
+		<table class="table table-striped">
+		<tr ng-repeat="task in project.tasks">
+			<td style="width:40px; border-right:1px solid #EFDADF">
+				<form><input type="checkbox" ng-checked="checkTask(project.task)"></form>
+			</td>
+			<td style="width:4px; border-right:1px solid #EFDADF"></td>
+			<td style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
+			<td style="width:119px">	
+						<td>
+						<div style="display:block">
+							<button ng-click="upTask()"   class="glyphicon glyphicon-chevron-up"></button>
+							<button ng-click="downTask()" class="glyphicon glyphicon-chevron-down"></button>
+						</div>
+					</td>
+					<td><button ng-click="editTask()" class="glyphicon glyphicon-pencil"></button></td>
+					<td><button ng-click="deleteTask(task.content, project.name)" class="glyphicon glyphicon-trash"></button></td>
+				
+			</td>
+		</tr>
+		</table>
+	
 </div>
-
 <div style="margin-right:auto; margin-left:auto; width:300px">
 	<button ng-click="isListShow = !isListShow" class="btn btn-primary " style="margin-right:auto; margin-left:auto;">Add TODO List</button>
 	<form ng-show="isListShow">
