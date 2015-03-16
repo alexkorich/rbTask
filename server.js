@@ -86,10 +86,10 @@ app.post('/addTask', function(req, res){
 app.post('/deleteTask', function(req, res){
 	var msg='';
 	console.log('deleteTask!');
-	console.log('deleteTask: ', req.body.username, req.body.projectName, req.body.task);
+	console.log('deleteTask: ', req.body.username, req.body.projectName, req.body.taskId);
 	db.project.update({username:req.body.username, name:req.body.projectName}, 
 
-		{$pull: {'tasks': {'content': req.body.task}}}, function(err, project){
+		{$pull: {'tasks': {_id: req.body.taskId}}}, function(err, project){
 			console.log("LIIIIII"+project);
 		});
 		
@@ -120,11 +120,11 @@ app.post('/deleteProject', function(req, res){
 
 
 app.post('/loadProjects', function(req, res){
-console.log("loadProjects! "+req.body.username);
-db.project.find({username:req.body.username}, function(err, project){
-	console.log(project);
-	res.send(project);
-})
+	console.log("loadProjects! "+req.body.username);
+	db.project.find({username:req.body.username}, function(err, project){
+		console.log(project);
+		res.send(project);
+	})
 
 });
 
@@ -148,24 +148,6 @@ app.post('/newUser', function(req, res){
 	});
 
 });
-
-
-
-
-// exports.create = function(req, res){
-// 	console.log('I have got POST HTTP request /admin/create');
-// 	logindb.userModel.create({
-// 		username: 	req.body.username,
-// 		password: 	req.body.password,
-// 		firstName: 	req.body.firstName,
-// 		lastName: 	req.body.lastName,
-// 		role: 		req.body.role,
-// 		admin: 		false
-// 		}, function(err, user){
-// 			console.log('user was created' + user);
-// 		});
-// };
-
 
 app.listen(3000);
 console.log('App listening on port 3000');

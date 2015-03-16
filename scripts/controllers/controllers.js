@@ -4,13 +4,14 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 	//vars
 	$scope.isListShow=false;
 	$scope.newProjectName='';
-
+	$scope.errNewProject='';
+	$scope.errNewTask='';
 	//functions
 	$scope.logout =function(){
 		$rootScope.username=null;
-	$location.path("/");
-
+		$location.path("/");
 	}
+
 	$scope.start = function(){
 		$scope.projects={};
 		$scope.user={};
@@ -33,15 +34,23 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 
 	$scope.createProject =function(projectName){
 		var msg='';
-		if(projectName===null){
-
+		if(projectName.length<1){
+			console.log("projectName empty")
+			$scope.errNewProject="Enter project name";
 		}
 		else{
 			$http.post('/createProject', {username:$scope.user.username, projectName:projectName})
 			.success(function(res, err){
+				if(res==="already"){
+					$scope.errNewProject="Project with this name is already exist";
+
+
+				}
+
 				if(res==="ok")
 					{$scope.reload();
 						$scope.newProjectName='';
+						$scope.errNewProject='';
 						}	
 					})
 		};
@@ -63,17 +72,23 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 	}
 
 	$scope.addTask= function(content, projectName){
+		if(content==null){
+			$scope.errNewTask="Enter task";
+
+		}
+		else{
 		console.log("addTask!")
 		$http.post('/addTask', {username:$scope.user.username, projectName:projectName, content:content})
 			.success(function(res, err){
 				if(res==="ok")
-					{$scope.reload();}
+					{	$scope.errNewTask='';
+						$scope.reload();}
 						
-					})
+					})}
 	}
-	$scope.deleteTask= function(taskContent, projectName){
-		console.log("deleteTask!")
-		$http.post('/deleteTask', {username:$scope.user.username, projectName:projectName, task:taskContent})
+	$scope.deleteTask= function(taskId, projectName){
+		console.log("deleteTask!"+ taskId)
+		$http.post('/deleteTask', {username:$scope.user.username, projectName:projectName, taskId:taskId})
 			.success(function(res, err){
 				if(res==="ok")
 					{$scope.reload();}
