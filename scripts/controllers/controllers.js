@@ -99,6 +99,16 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 						
 					})
 	}
+	$scope.checkTask= function(taskId, projectName){
+		console.log("checkTask!"+ taskId)
+		$http.post('/checkTask', {username:$scope.user.username, projectName:projectName, taskId:taskId})
+			.success(function(res, err){
+				if(res==="ok")
+					{$scope.reload();}
+						
+					})
+	}
+
 	//end controller
 });
 

@@ -94,7 +94,28 @@ app.post('/deleteTask', function(req, res){
 		
 		res.send("ok");
 
+ });
+app.post('/checkTask', function(req, res){
+	var msg='';
+	console.log('checkTask!');
+	console.log('checkTask: ', req.body.username, req.body.projectName, req.body.taskId);
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+	 	var task1=project.tasks.id(req.body.taskId);
+	 	task1.isDone=true;
+	 	console.log(task1+"lil");
+		project.save(function (err) {
+        if(err) {
+
+            console.error('ERROR!');
+        }
+        console.log("saved!")
+    	});
+		res.send("ok");
+	});
 });
+
+
+
 
 
 app.post('/deleteProject', function(req, res){
