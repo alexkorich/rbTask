@@ -1,11 +1,11 @@
 <div ng-init="start()" style="margin-right:auto; margin-left:auto">
 	 
-	<div class="panel panel-primary" style="margin: 0; padding: 0; border:0">
-		<div class="panel panel-primary panel-heading"><span>Hello, {{username}}</span><button ng-click="logout()" class="btn btn-primary" style="float:right">Logout</button></div> 
+	<div class="panel panel-primary" style="margin: 0; padding: 0; border:0; display:block">
+		<div class="panel panel-primary panel-heading" style="display:block"><span style="display:inline-block; float:left">Hello, {{username}}</span><button style="display:inline-block" ng-click="logout()" class="btn btn-primary">Logout</button></div> 
 	</div>
 	
 	<br>
-	<div ng-repeat="project in projects" class="panel panel-primary" style="width:700px;margin-left:auto;margin-right:auto">
+	<div ng-repeat="project in projects" class="panel panel-primary" style="min-width:700px;margin-left:auto;margin-right:auto">
 		<div id="header" class="panel-heading" style="height:49px">
 			<span class="glyphicon glyphicon-list-alt"></span>
 			<span>{{project.name}}</span>
@@ -13,26 +13,25 @@
 			<span style="float:right"id="delete" ng-click="deleteProject(project.name)" class="glyphicon glyphicon-trash"</span>
 		</div>
 
-		<div id="taskAdder" class="panel-body" style="height:49px; background-color:#DFDFDF">
-			<span class="glyphicon glyphicon-plus" style="color:green; height:25px; width:25px"></span>
-			<span>
-				<form style="margin: 0; padding: 0;">
-					<input type="text" style="width: 460px; display:inline" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
-					<input type="date" ng-model="newTaskDeadline">
-					<button ng-click="addTask(newTaskContent, newTaskDeadline, project.name)" style="float:right" class="btn btn-success">Add Task</button>
+		<div id="taskAdder" class="panel-body" style="height:49px; background-color:#DFDFDF; display:block">
+			<span class="glyphicon glyphicon-plus" style="color:green; height:25px; width:25px; float:left ; display:inline-block"></span>
+			
+				<form style="margin: 0; padding: 0; ; float:left ; display:inline-block">
+					<input type="text" style="width: 460px; float:left ; display:inline-block" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
+					<input type="date" style="height:25px;float:left ; display:inline-block" ng-model="newTaskDeadline">
+					<button style="float:left; display:inline-block " ng-click="addTask(newTaskContent, newTaskDeadline, project.name)" style="float:right" class="btn btn-success">Add Task</button>
 					<div class="alert alert-danger" ng-show="errNewTask" role="alert">
 				            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				          	   <span class="sr-only">Error:</span>
 				               {{errNewTask}}
          			 </div>
 				</form>	
-			</span>
 		</div>
 <br>
 <br>
 		<table class="table table-striped">
 		<tr ng-mouseenter="myStyle={'background-color': '#FCFED5' }"
-    ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks" ng-style="{background-color: myColor}">
+    ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks" ng-style="myStyle">
 			<td style="width:40px; border-right:1px solid #EFDADF">
 				<form><input type="checkbox" ng-checked="task.isDone" ng-disabled="task.isDone" ng-click="checkTask(task._id, project.name)"></form>
 			</td>
@@ -42,13 +41,12 @@
 			<td style="width:119px">	
 						<td>
 						<div style="display:block">
-							<button ng-click="upTask()"   class="glyphicon glyphicon-chevron-up"></button>
-							<button ng-click="downTask()" class="glyphicon glyphicon-chevron-down"></button>
+							<span ng-click="upTask()"   class="glyphicon glyphicon-chevron-up"></span>
+							<span ng-click="downTask()" class="glyphicon glyphicon-chevron-down"></span>
 						</div>
 					</td>
 					<td><button ng-click="editTask()" class="glyphicon glyphicon-pencil"></button></td>
 					<td><button ng-click="deleteTask(task._id, project.name)" class="glyphicon glyphicon-trash"></button></td>
-				
 			</td>
 		</tr>
 		</table>
