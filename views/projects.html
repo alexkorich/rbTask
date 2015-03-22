@@ -31,12 +31,12 @@
 <br>
 		<table class="table table-striped">
 		<tr ng-mouseenter="myStyle={'background-color': '#FCFED5' }"
-    ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks" ng-style="myStyle">
+    ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks | orderBy:'order'" ng-style="myStyle">
 			<td style="width:40px; border-right:1px solid #EFDADF">
-				<form><input type="checkbox" ng-checked="task.isDone" ng-disabled="task.isDone" ng-click="checkTask(task._id, project.name)"></form>
+				<form><input type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)"></form>
 			</td>
 			<td style="width:4px; border-right:1px solid #EFDADF"></td>
-			<td style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
+			<td style="width:534px; border-right:1px solid #EFDADF">{{task}}</td>
 			<td style="border-right:1px solid #EFDADF">{{task.deadline| date:'dd-MM-yyyy'}}</td>
 			<td style="width:119px">	
 						<td>

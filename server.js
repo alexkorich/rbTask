@@ -101,7 +101,13 @@ app.post('/checkTask', function(req, res){
 	console.log('checkTask: ', req.body.username, req.body.projectName, req.body.taskId);
 	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
 	 	var task1=project.tasks.id(req.body.taskId);
-	 	task1.isDone=true;
+	 	if (task1.isDone){
+			task1.isDone=false;
+
+	 	}
+	 	else{
+	 		task1.isDone=true;
+	 	}
 	 	console.log(task1+"lil");
 		project.save(function (err) {
         if(err) {
