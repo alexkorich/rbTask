@@ -49,7 +49,7 @@ app.post('/createProject', function(req, res){
 		if (project===null)	
 		{
 			console.log("not found, creating");
-			db.project.create({username:req.body.username, name:req.body.projectName}, function(err, project){
+			db.project.create({username:req.body.username, name:req.body.projectName, showEdit:false}, function(err, project){
 
 
 			});
@@ -69,7 +69,7 @@ app.post('/addTask', function(req, res){
 	console.log('addTask: ', req.body.username, req.body.projectName, req.body.content, req.body.deadline);
 	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
 		var tasksCount=project.tasks.length+1;
-		project.tasks.push({order:tasksCount, content:req.body.content, deadline: req.body.deadline, isDone : false})
+		project.tasks.push({order:tasksCount, content:req.body.content, deadline: req.body.deadline, isDone : false, showEdit:false})
 		project.save(function (err) {
         if(err) {
 
@@ -86,20 +86,31 @@ app.post('/deleteTask', function(req, res){
 	var msg='';
 	console.log('deleteTask!');
 	console.log('deleteTask: ', req.body.username, req.body.projectName, req.body.taskId);
-	db.project.update({username:req.body.username, name:req.body.projectName}, 
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+		var d='';
+		var tasks=project.tasks;
+		for (var i=0; i<tasks.length; i++){
+			if(tasks[i]._id===req.body.taskId){
+				d=i;
+				 }
+			}
+		tasks.splice(d, 1);
+		console.log("splice"+tasks);
+		for (var i=0; i<tasks.length; i++){
+			tasks[i].order=i+1
+			};
+			console.log("splice2"+tasks);
+	project.save(function (err) {
+        if(err) {
 
-		{$pull: {'tasks': {_id: req.body.taskId}}}, function(err, project){
-			console.log("LIIIIII"+project);
-		});
-		
+            console.error('ERROR!');
+        }
+        console.log("saved!")
+    	});
 		res.send("ok");
 
- });
-
-
-
-
-
+	});
+});
 
 app.post('/checkTask', function(req, res){
 	var msg='';
@@ -133,7 +144,7 @@ app.post('/downTask', function(req, res){
 	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
 	 	var task1=project.tasks.id(req.body.taskId);
 	 	var task2;
-			var tasks=project.tasks;
+		var tasks=project.tasks;
 				 	for (var i=0; i<tasks.length; i++){
 				 		console.log(tasks[i].order);
 				 		if(tasks[i].order==task1.order+1){
@@ -143,9 +154,8 @@ app.post('/downTask', function(req, res){
 				 	}
 				 	task2.order=task1.order;
 				 		task1.order=task1.order+1;
-				 		project.save(function (err) {
+		project.save(function (err) {
         if(err) {
-
             console.error('ERROR!');
         }
         console.log("saved!")

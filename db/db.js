@@ -21,7 +21,8 @@ var projectSchema = Schema(
     {
         name:           {type: String, required: true, unique: true},
         username:       {type: String},
-        tasks:          [{order: Number, content: String, deadline: Date, isDone : Boolean}]
+        showEdit:       {type:Boolean},
+        tasks:          [{order: Number, content: String, deadline: Date, isDone : Boolean, showEdit:Boolean}]
     }
 );
 

@@ -73,10 +73,10 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 	}
 
 	$scope.addTask= function(content, deadLine, projectName){
-		if(content==null){
+		if(content==='' || content===null){
 			$scope.errNewTask="Enter task";
 
-		}else if(deadLine==null){
+		}else if(deadLine==='' || deadLine===null){
 
 			$scope.errNewTask="Enter deadline for a task";
 		}
@@ -109,8 +109,8 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 			else{	
 				$http.post('/upTask', {username:$scope.user.username, projectName:projectName, taskId:task._id})
 					.success(function(res, err){
-									if(res==="ok")
-										{$scope.reload();}
+						if(res==="ok")
+						{$scope.reload();}
 											
 										})
 
@@ -119,6 +119,10 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 
 
 	}
+$scope.showProjectEdit = function(){
+
+
+}
 
 $scope.downTask = function(task, projectName, project){
 	if(task.order>=project.tasks.length){
@@ -130,7 +134,7 @@ $scope.downTask = function(task, projectName, project){
 				if(res==="ok")
 				{$scope.reload();}
 				})
-				}
+	}
 		
 
 	$scope.checkTask= function(task, projectName){
