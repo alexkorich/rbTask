@@ -95,6 +95,12 @@ app.post('/deleteTask', function(req, res){
 		res.send("ok");
 
  });
+
+
+
+
+
+
 app.post('/checkTask', function(req, res){
 	var msg='';
 	console.log('checkTask!');
@@ -120,7 +126,66 @@ app.post('/checkTask', function(req, res){
 	});
 });
 
+app.post('/downTask', function(req, res){
+	var msg='';
+	console.log('downTask!');
+	console.log('downTask: ', req.body.username, req.body.projectName, req.body.taskId);
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+	 	var task1=project.tasks.id(req.body.taskId);
+	 	var task2;
+			var tasks=project.tasks;
+				 	for (var i=0; i<tasks.length; i++){
+				 		console.log(tasks[i].order);
+				 		if(tasks[i].order==task1.order+1){
+				 			task2=tasks[i];
+				 			console.log(task2);
+				 		}
+				 	}
+				 	task2.order=task1.order;
+				 		task1.order=task1.order+1;
+				 		project.save(function (err) {
+        if(err) {
 
+            console.error('ERROR!');
+        }
+        console.log("saved!")
+    	});
+		res.send("ok");
+	
+	});
+});
+
+
+
+
+app.post('/upTask', function(req, res){
+	var msg='';
+	console.log('upTask!');
+	console.log('upTask: ', req.body.username, req.body.projectName, req.body.taskId);
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+	 	var task1=project.tasks.id(req.body.taskId);
+	 	var task2;
+			var tasks=project.tasks;
+				 	for (var i=0; i<tasks.length; i++){
+				 		console.log(tasks[i].order);
+				 		if(tasks[i].order==task1.order-1){
+				 			task2=tasks[i];
+				 			console.log(task2);
+				 		}
+				 	}
+				 	task2.order=task1.order;
+				 		task1.order=task1.order-1;
+				 		project.save(function (err) {
+        if(err) {
+
+            console.error('ERROR!');
+        }
+        console.log("saved!")
+    	});
+		res.send("ok");
+	
+	});
+});
 
 
 

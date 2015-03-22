@@ -99,9 +99,43 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 						
 					})
 	}
+
+	$scope.upTask =function(task, projectName){
+		console.log(task);
+		if (task.order===1)
+		{
+			console.log("first!")
+			return;}
+			else{	
+				$http.post('/upTask', {username:$scope.user.username, projectName:projectName, taskId:task._id})
+					.success(function(res, err){
+									if(res==="ok")
+										{$scope.reload();}
+											
+										})
+
+
+			}
+
+
+	}
+
+$scope.downTask = function(task, projectName, project){
+	if(task.order>=project.tasks.length){
+		console.log("last!");
+		return;
+	}
+	$http.post('/downTask', {username:$scope.user.username, projectName:projectName, taskId:task._id})
+			.success(function(res, err){
+				if(res==="ok")
+				{$scope.reload();}
+				})
+				}
+		
+
 	$scope.checkTask= function(task, projectName){
 		
-		console.log("checkTask!"+ task._id)
+		console.log("checkTask!"+ task)
 		$http.post('/checkTask', {username:$scope.user.username, projectName:projectName, taskId:task._id})
 			.success(function(res, err){
 				if(res==="ok")

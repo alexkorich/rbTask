@@ -5,7 +5,7 @@
 	</div>
 	
 	<br>
-	<div ng-repeat="project in projects" class="panel panel-primary" style="min-width:700px;margin-left:auto;margin-right:auto">
+	<div ng-repeat="project in projects | orderBy : 'name'" class="panel panel-primary" style="min-width:700px;margin-left:auto;margin-right:auto">
 		<div id="header" class="panel-heading" style="height:49px">
 			<span class="glyphicon glyphicon-list-alt"></span>
 			<span>{{project.name}}</span>
@@ -36,13 +36,13 @@
 				<form><input type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)"></form>
 			</td>
 			<td style="width:4px; border-right:1px solid #EFDADF"></td>
-			<td style="width:534px; border-right:1px solid #EFDADF">{{task}}</td>
+			<td style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
 			<td style="border-right:1px solid #EFDADF">{{task.deadline| date:'dd-MM-yyyy'}}</td>
 			<td style="width:119px">	
 						<td>
 						<div style="display:block">
-							<span ng-click="upTask()"   class="glyphicon glyphicon-chevron-up"></span>
-							<span ng-click="downTask()" class="glyphicon glyphicon-chevron-down"></span>
+							<span ng-click="upTask(task, project.name)" class="glyphicon glyphicon-chevron-up"></span>
+							<span ng-click="downTask(task, project.name, project)" class="glyphicon glyphicon-chevron-down"></span>
 						</div>
 					</td>
 					<td><button ng-click="editTask()" class="glyphicon glyphicon-pencil"></button></td>
