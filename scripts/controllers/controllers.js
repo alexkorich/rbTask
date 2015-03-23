@@ -3,7 +3,9 @@ var rbControllers = angular.module('rbControllers', []);
 rbControllers.controller('projectsControl', function($rootScope, $scope, $location, $http){
 	//vars
 	$scope.isListShow=false;
+	$scope.newProject='';
 	$scope.newProjectName='';
+	$scope.newTaskName='';
 	$scope.errNewProject='';
 	$scope.errNewTask='';
 	$scope.newTaskDeadline='';
@@ -50,7 +52,7 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 
 				if(res==="ok")
 					{$scope.reload();
-						$scope.newProjectName='';
+						$scope.newProject='';
 						$scope.errNewProject='';
 						}	
 					})
@@ -122,22 +124,19 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 $scope.showProjectEdit = function(){
 	if(this.project.showEdit){
 		this.project.showEdit=false;
-		$scope.newProjectName='';
+		this.newProjectName='';
 		$scope.errNewTask='';
 	}else{
 		this.project.showEdit=true;
-		$scope.newProjectName=this.project.name;
+		this.newProjectName=this.project.name;
 	}
 }
 
 $scope.changeProjectName =function(project, newProjectName){
 		console.log("change pr name!")
 		if(newProjectName){
-			if(newProjectName===project.name){
-				$scope.showProjectEdit();
-				return;
-
-			}
+			
+			
 		$http.post('/changeProjectName', {username:$scope.user.username, projectName:project.name, newProjectName:newProjectName})
 					.success(function(res, err){
 						if(res==="ok")
