@@ -132,6 +132,22 @@ $scope.showProjectEdit = function(){
 	}
 }
 
+$scope.showTaskEdit = function(){
+	if(this.task.showEdit){
+		this.task.showEdit=false;
+		this.newTaskName='';
+		$scope.errNewTask='';
+	}else{
+		this.task.showEdit=true;
+		this.newTaskName=this.task.content;
+	}
+}
+
+
+
+
+
+
 $scope.changeProjectName =function(project, newProjectName){
 		console.log("change pr name!")
 		if(newProjectName){
@@ -152,6 +168,20 @@ $scope.changeProjectName =function(project, newProjectName){
 		
 	}
 
+$scope.changeTaskName =function(task, newTaskName, projectName){
+		console.log("change task name!")
+		if(newTaskName){
+			$http.post('/changeTaskName', {username:$scope.user.username, task:task, newTaskName:newTaskName, projectName:projectName})
+				.success(function(res, err){
+					if(res==="ok")
+					{$scope.reload();}
+					})
+		}else{
+		$scope.errNewTask="Enter task name!";
+
+		}
+		
+	}
 $scope.downTask = function(task, projectName, project){
 	if(task.order>=project.tasks.length){
 		console.log("last!");

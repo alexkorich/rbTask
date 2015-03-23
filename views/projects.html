@@ -40,9 +40,10 @@
 				<form><input type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)"></form>
 			</td>
 			<td style="width:4px; border-right:1px solid #EFDADF"></td>
-			<td style="width:534px; border-right:1px solid #EFDADF">{{task}}</td>
-			<td ng-show="task.showEdit"></td>
-			<td ng-show="task.showEdit"></td>
+			<td ng-show="!task.showEdit" style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
+			<td ng-show="task.showEdit"><input type="text" ng-init="newTaskName"ng-model="newTaskName" style="color:black"></td>
+			<td ng-show="task.showEdit"><span class="btn btn-success" ng-click="changeTaskName(task, newTaskName, project.name)">Save</span></td>
+			<td ng-show="task.showEdit"><span class="btn btn-success" ng-click="showTaskEdit()">Cancel</span></td>
 			<td style="border-right:1px solid #EFDADF">{{task.deadline| date:'dd-MM-yyyy'}}</td>
 			<td style="width:119px">	
 						<td>
@@ -51,7 +52,7 @@
 							<span ng-click="downTask(task, project.name, project)" class="glyphicon glyphicon-chevron-down"></span>
 						</div>
 					</td>
-					<td><button ng-click="editTask()" class="glyphicon glyphicon-pencil"></button></td>
+					<td><button ng-click="showTaskEdit()" class="glyphicon glyphicon-pencil"></button></td>
 					<td><button ng-click="deleteTask(task._id, project.name)" class="glyphicon glyphicon-trash"></button></td>
 			</td>
 		</tr>
