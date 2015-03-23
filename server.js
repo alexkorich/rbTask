@@ -82,6 +82,33 @@ app.post('/addTask', function(req, res){
 	
 });
 
+app.post('/changeProjectName', function(req, res){
+	var msg='';
+	console.log('changeProjectName!');
+	console.log('changeProjectName: ', req.body.username, req.body.projectName, req.body.newProjectName);
+	db.project.findOne({username:req.body.username, name:req.body.projectName}, function(err, project){
+		if (!project)	
+		{
+			console.log("not found? can't remove");
+			res.send("notFound");	
+		} else{
+			project.name=req.body.newProjectName;
+			project.save(function (err) {
+        		if(err) {
+            		console.error('ERROR!');
+            		res.send("errror!")
+        		}else
+        		console.log("saved!")
+        		res.send("ok");
+    			});
+		}
+
+	});
+});
+	
+
+
+
 app.post('/deleteTask', function(req, res){
 	var msg='';
 	console.log('deleteTask!');

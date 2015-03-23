@@ -120,9 +120,38 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 
 	}
 $scope.showProjectEdit = function(){
-
-
+	if(this.project.showEdit){
+		this.project.showEdit=false;
+		$scope.newProjectName='';
+		$scope.errNewTask='';
+	}else{
+		this.project.showEdit=true;
+		$scope.newProjectName=this.project.name;
+	}
 }
+
+$scope.changeProjectName =function(project, newProjectName){
+		console.log("change pr name!")
+		if(newProjectName){
+			if(newProjectName===project.name){
+				$scope.showProjectEdit();
+				return;
+
+			}
+		$http.post('/changeProjectName', {username:$scope.user.username, projectName:project.name, newProjectName:newProjectName})
+					.success(function(res, err){
+						if(res==="ok")
+							{$scope.reload();}
+								
+							})
+
+
+		}else{
+		$scope.errNewTask="Enter project name!";
+
+		}
+		
+	}
 
 $scope.downTask = function(task, projectName, project){
 	if(task.order>=project.tasks.length){
