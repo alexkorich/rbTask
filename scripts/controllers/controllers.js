@@ -121,78 +121,78 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 
 
 	}
-$scope.showProjectEdit = function(){
-	if(this.project.showEdit){
-		this.project.showEdit=false;
-		this.newProjectName='';
-		$scope.errNewTask='';
-	}else{
-		this.project.showEdit=true;
-		this.newProjectName=this.project.name;
+	$scope.showProjectEdit = function(){
+		if(this.project.showEdit){
+			this.project.showEdit=false;
+			this.newProjectName='';
+			$scope.errNewTask='';
+		}else{
+			this.project.showEdit=true;
+			this.newProjectName=this.project.name;
+		}
 	}
-}
 
-$scope.showTaskEdit = function(){
-	if(this.task.showEdit){
-		this.task.showEdit=false;
-		this.newTaskName='';
-		$scope.errNewTask='';
-	}else{
-		this.task.showEdit=true;
-		this.newTaskName=this.task.content;
+	$scope.showTaskEdit = function(){
+		if(this.task.showEdit){
+			this.task.showEdit=false;
+			this.newTaskName='';
+			$scope.errNewTask='';
+		}else{
+			this.task.showEdit=true;
+			this.newTaskName=this.task.content;
+		}
 	}
-}
 
 
 
 
 
 
-$scope.changeProjectName =function(project, newProjectName){
-		console.log("change pr name!")
-		if(newProjectName){
+	$scope.changeProjectName =function(project, newProjectName){
+			console.log("change pr name!")
+			if(newProjectName){
+				
+				
+			$http.post('/changeProjectName', {username:$scope.user.username, projectName:project.name, newProjectName:newProjectName})
+						.success(function(res, err){
+							if(res==="ok")
+								{$scope.reload();}
+									
+								})
+
+
+			}else{
+			$scope.errNewTask="Enter project name!";
+
+			}
 			
-			
-		$http.post('/changeProjectName', {username:$scope.user.username, projectName:project.name, newProjectName:newProjectName})
+		}
+
+	$scope.changeTaskName =function(task, newTaskName, projectName){
+			console.log("change task name!")
+			if(newTaskName){
+				$http.post('/changeTaskName', {username:$scope.user.username, task:task, newTaskName:newTaskName, projectName:projectName})
 					.success(function(res, err){
 						if(res==="ok")
-							{$scope.reload();}
-								
-							})
+						{$scope.reload();}
+						})
+			}else{
+			$scope.errNewTask="Enter task name!";
 
-
-		}else{
-		$scope.errNewTask="Enter project name!";
-
+			}
+			
 		}
-		
-	}
-
-$scope.changeTaskName =function(task, newTaskName, projectName){
-		console.log("change task name!")
-		if(newTaskName){
-			$http.post('/changeTaskName', {username:$scope.user.username, task:task, newTaskName:newTaskName, projectName:projectName})
+	$scope.downTask = function(task, projectName, project){
+		if(task.order>=project.tasks.length){
+			console.log("last!");
+			return;
+		}
+		$http.post('/downTask', {username:$scope.user.username, projectName:projectName, taskId:task._id})
 				.success(function(res, err){
 					if(res==="ok")
 					{$scope.reload();}
 					})
-		}else{
-		$scope.errNewTask="Enter task name!";
-
 		}
-		
-	}
-$scope.downTask = function(task, projectName, project){
-	if(task.order>=project.tasks.length){
-		console.log("last!");
-		return;
-	}
-	$http.post('/downTask', {username:$scope.user.username, projectName:projectName, taskId:task._id})
-			.success(function(res, err){
-				if(res==="ok")
-				{$scope.reload();}
-				})
-	}
 		
 
 	$scope.checkTask= function(task, projectName){
@@ -280,7 +280,7 @@ rbControllers.controller('loginControl', function($rootScope, $scope, $location,
 	};
 	function userCheck(username){
 		var i=true;
-		if (username.length <= 0){
+		if (username== null){
 			i=false;
 			console.log("userCheck fail");
 			}
