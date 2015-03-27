@@ -14,10 +14,6 @@ rbApp.config(['$routeProvider',
                 templateUrl: '/views/projects.html',
                 controller: 'projectsControl'
             }).
-            when('/tasks', {
-                templateUrl: '/views/tasks.html',
-                controller: 'tasksControl'
-            }).
             otherwise({redirectTo: '/'})
 			
 }]);

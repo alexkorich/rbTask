@@ -24,7 +24,7 @@
 					<input type="text" style="width: 460px; float:left ; display:inline-block" ng-model="newTaskContent" placeholder="Start typing here to create a task...">
 					<input type="date" style="height:25px;float:left ; display:inline-block" ng-model="newTaskDeadline">
 					<button style="float:left; display:inline-block " ng-click="addTask(newTaskContent, newTaskDeadline, project.name)" style="float:right" class="btn btn-success">Add Task</button>
-					<div class="alert alert-danger" ng-show="errNewTask" role="alert">
+					<div class="alert alert-danger" ng-show="errNewTask" role="alert" z-index="1">
 				            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				          	   <span class="sr-only">Error:</span>
 				               {{errNewTask}}
@@ -37,13 +37,15 @@
 		<tr ng-mouseenter="myStyle={'background-color': '#FCFED5' }"
     ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks | orderBy:'order'" ng-style="myStyle">
 			<td style="width:40px; border-right:1px solid #EFDADF">
-				<form><input type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)"></form>
+				<input type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)">
 			</td>
 			<td style="width:4px; border-right:1px solid #EFDADF"></td>
 			<td ng-show="!task.showEdit" style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
 			<td ng-show="task.showEdit"><input type="text" ng-init="newTaskName"ng-model="newTaskName" style="color:black"></td>
-			<td ng-show="task.showEdit"><span class="btn btn-success" ng-click="changeTaskName(task, newTaskName, project.name)">Save</span></td>
-			<td ng-show="task.showEdit"><span class="btn btn-success" ng-click="showTaskEdit()">Cancel</span></td>
+			<td ng-show="task.showEdit">
+				<span class="btn btn-success" ng-click="changeTaskName(task, newTaskName, project.name)">Save</span>
+				<span class="btn btn-success" ng-click="showTaskEdit()">Cancel</span>
+			</td>
 			<td style="border-right:1px solid #EFDADF">{{task.deadline| date:'dd-MM-yyyy'}}</td>
 			<td style="width:119px">	
 						<td>

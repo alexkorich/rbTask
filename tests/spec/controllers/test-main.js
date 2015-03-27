@@ -39,9 +39,15 @@ describe('Unit: loginControl', function() {
   }));
 
 
-  it('should check',
+  it('should check new user creation',
     function() {
        scope.newUser();
       expect(scope.errNewUser).toEqual("Enter an username");
+  },
+  function() {
+    scope.newUser()
+
+
+    
   });
 })
