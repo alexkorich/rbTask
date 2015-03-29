@@ -9,7 +9,7 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 	$scope.errNewProject='';
 	$scope.errNewTask='';
 	$scope.newTaskDeadline='';
-	//functions
+//functions
 	$scope.start             = function(){
 		$scope.projects={};
 		$scope.user={};
