@@ -2,8 +2,11 @@
 
     <div class="panel panel-primary" style="margin: 0; padding: 0; border:0; display:block">
         <div class="panel panel-primary panel-heading header-panel">
-		<div class="panel panel-primary panel-heading" style="display:block"><span style="display:inline-block; float:left">Hello, {{username}}</span><button style="display:inline-block" ng-click="logout()" class="btn btn-primary">Logout</button></div> 
+		<div class="panel panel-primary panel-heading" style="display:block">
+            <span style="display:inline-block; float:left">Hello, {{username}}</span>
             <button ng-click="logout()" class="btn btn-primary button-logout">Logout</button>
+        </div> 
+           
         </div>
     </div>
 
@@ -13,8 +16,9 @@
         <div id="header" class="panel-heading" style="height:49px">
             <span class="glyphicon glyphicon-list-alt" style="top: 5px;"></span>
             <span ng-show="!project.showEdit" class="project-name-class">{{project.name}}</span>
-            <span ng-show="project.showEdit"><input type="text" ng-init="newProjectName" ng-model="newProjectName"
-                                                    style="color:grey"></span>
+            <span ng-show="project.showEdit">
+                <input type="text" ng-init="newProjectName" ng-model="newProjectName"style="color:grey">
+                 </span>
             <span ng-show="project.showEdit" class="btn btn-success"
                   ng-click="changeProjectName(project, newProjectName)">Save</span>
             <span ng-show="project.showEdit" class="btn btn-success" ng-click="showProjectEdit()">Cancel</span>
@@ -23,11 +27,7 @@
             <span style="float:right;  margin: 5px" id="edit" ng-click="showProjectEdit()"
                   class="glyphicon glyphicon-pencil"
                   aria-hidden="true"></span>
-			<span style="float:right"id="edit" ng-click="showProjectEdit()" class="glyphicon glyphicon-pencil" aria-hidden="true"</span> 
-			<span style="float:right"id="delete" ng-click="deleteProject(project.name)" class="glyphicon glyphicon-trash"</span>
-
-
-        </div>
+			        </div>
 
         <div id="taskAdder" class="panel-body" style="height:49px; background-color:#DFDFDF; display:block">
             <span class="glyphicon glyphicon-plus green-plus"></span>
@@ -35,8 +35,8 @@
             <form style="margin: 0; padding: 0; ; float:left ; display:inline-block">
                 <input type="text" class="task-name" ng-model="newTaskContent"
                        placeholder="Start typing here to create a task...">
-                <input type="date" style="height:25px;float:left ; display:inline-block" ng-model="newTaskDeadline">
-                <button ng-click="addTask(newTaskContent, newTaskDeadline, project.name)"
+                <input type="date" style="height:25px;float:left ; display:inline-block" ng-model="newTaskDeadline.value">
+                <button ng-click="addTask(newTaskContent, newTaskDeadline.value, project.name)"
                         class="btn btn-success add-task-button">Add Task
                 </button>
                 <div class="alert alert-danger" ng-show="errNewTask" role="alert" z-index="1">
@@ -51,11 +51,11 @@
             <tr ng-mouseenter="myStyle={'background-color': '#FCFED5' }"
                 ng-mouseleave="myStyle={}" ng-repeat="task in project.tasks | orderBy:'order'" ng-style="myStyle">
                 <td style="width: 4%; border-right:1px solid #EFDADF">
-                    <input type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)">
+                    <input style="margin-left: 10px"type="checkbox" ng-model="task.isDone" ng-click="checkTask(task, project.name)">
                 </td>
                 <td class="column-with-1" style="border-right:1px solid #EFDADF"></td>
                 <td ng-show="!task.showEdit" style="width:534px; border-right:1px solid #EFDADF">{{task.content}}</td>
-                <td ng-show="task.showEdit">
+                <td ng-show="task.showEdit" style="border-right:1px solid #EFDADF">
                     <input type="text" ng-init="newTaskName" ng-model="newTaskName"
                            style="color:black">
                   <span class="btn btn-success "
@@ -67,7 +67,7 @@
                 <td style="border-right:1px solid #EFDADF; width: 12%">{{task.deadline| date:'dd-MM-yyyy'}}</td>
                 <td style="width:1%">
                 <td style="width: 5%;">
-                    <div style="display:block">
+                    <div style="display:block; max-width: 7px">
                         <span ng-click="upTask(task, project.name)" class="glyphicon glyphicon-chevron-up"></span>
                         <span ng-click="downTask(task, project.name, project)"
                               class="glyphicon glyphicon-chevron-down"></span>

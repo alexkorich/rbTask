@@ -8,7 +8,8 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 	$scope.newTaskName='';
 	$scope.errNewProject='';
 	$scope.errNewTask='';
-	$scope.newTaskDeadline='';
+	
+	$scope.newTaskDeadline={value: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)};
 //functions
 	$scope.start             = function(){
 		$scope.projects={};
@@ -18,6 +19,7 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 			$location.path("/");
 				}
 		console.log($scope.user.username);
+		console.log($scope.tomorrow);
 		$scope.reload();
 	}	
 
@@ -31,6 +33,7 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 		.success(function(res, err){
 			console.log('projects loaded');
 			$scope.projects=res;
+			$scope.newTaskDeadline={value: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)};
 			if(err){
 				console.log("res: "+res+ " err: "+err);
 			}
