@@ -1,1 +1,15 @@
 
+button-logout{
+    float: right;
+    top: -4px;
+    position: relative;
+}
+
+.header-panel{
+    min-height: 48px;
+}
+
+.hello-username {
+    top: 3px;
+    position: relative;
+}

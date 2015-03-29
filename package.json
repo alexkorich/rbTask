@@ -1,7 +1,7 @@
 {
   "name": "rbApp",
   "version": "0.0.1",
-  "author": "alex_korich",
+  "author": "alexey korichkovskiy",
   "dependencies": {
     "express": "latest",
     "body-parser": "latest",
