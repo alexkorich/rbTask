@@ -19,13 +19,13 @@ rbControllers.controller('projectsControl', function($rootScope, $scope, $locati
 			$location.path("/");
 				}
 		console.log($scope.user.username);
-		console.log($scope.tomorrow);
 		$scope.reload();
 	}	
 
 	$scope.logout            = function(){
 		$rootScope.username=null;
 		$location.path("/");
+		console.log($location.path());
 	}
 
 	$scope.reload            = function(){
@@ -258,16 +258,18 @@ rbControllers.controller('loginControl', function($rootScope, $scope, $location,
 	};
 
 	function userCheck(username){
-		var i=true;
-		if (username== null){
-			i=false;
+		
+		if (username==null || username===undefined){
+			
 			console.log("userCheck fail");
+			return false;
 			}
 		if (username.length>25){
-			i=false;
+			
 			console.log("too long")
+			return false;
 		}
-		return i;
+		return true;
 	};
 
 	function newPassCheck(pass1, pass2){

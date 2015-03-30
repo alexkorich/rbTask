@@ -5,7 +5,8 @@
   "dependencies": {
     "express": "latest",
     "body-parser": "latest",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "forever": "latest"
   },
   "devDependencies": {
     "chai": "^2.1.2",
