@@ -1,4 +1,4 @@
-Test task for Ruby Garage
+TODO List project
 =========================
 
 
@@ -6,6 +6,7 @@ Test task for Ruby Garage
 * Server:   NodeJS + ExpressJS 
 * Database: MongoDB + Mongoose driver 
 * CSS :     Bootstrap
+* BDD : 	Karma
 * Author: Alexey Korichkovskiy
 
 To launch a server you need installed NodeJS and MongoDB on your computer.
